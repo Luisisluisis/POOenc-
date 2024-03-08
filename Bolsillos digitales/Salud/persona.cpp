@@ -36,7 +36,17 @@ class Person
         cout << "What is your gender:";
         cin >> gender;
     }
-};
+void mostrarPersona()
+    {
+        cout << "Type of document: " << typeDocument << endl;
+        cout << "Document: " << document << endl;
+        cout << "Name: " << name << endl;
+        cout << "Last Name: " << lastName << endl;
+        cout << "Weight: " << weight << endl;
+        cout << "Height: " << height << endl;
+        cout << "Age: " << age << endl;
+        cout << "Gender: " << gender << endl;
+    }
 
 void calcularIMC()
 {
@@ -53,11 +63,12 @@ void calcularIMC()
     {
         cout << "Have overweight" << endl;
     }
-};
+    return actualWeight;
 
-bool mayorEdad ()
-{
-    return age >= 18;
+    bool mayorEdad ()
+    {
+        return age >= 18;
+    }
 };
 
 int main ()
@@ -67,11 +78,10 @@ int main ()
     person1.pedirDatos();
     person1.mostrarPersona();
 
-    cout << "IMC" << person1.calcularIMC() << end;
+    cout << "IMC" << person1.calcularIMC() << endl;
 
     cout << "He's older " << (person1.mayorEdad() ? "Yes" : "No") << endl;
     
-
     return 0;
 }
 
