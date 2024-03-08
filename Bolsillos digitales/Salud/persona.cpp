@@ -5,7 +5,7 @@ using namespace std;
 
 class Person 
 {
-    public:
+    private:
     string typeDocument;
     string document;
     string name;
@@ -17,6 +17,30 @@ class Person
 
     int age;
 
+    double calcularIMC()
+    {
+        double actualWeight = weight / (height * height);
+        if (actualWeight < 20) 
+        {
+            cout << "The weight is above the ideal weight" << endl;
+        }
+        else if (actualWeight >= 20 && actualWeight <= 25)
+        {
+            cout << "The weight is ideal" << endl;
+        }
+        else 
+        {
+            cout << "Have overweight" << endl;
+        }
+        return actualWeight;
+    }
+       
+    bool mayorEdad ()
+    {
+        return age >= 18;
+    }
+
+    public:
     void pedirDatos()
     {
         cout << "Enter type of document:";
@@ -36,7 +60,8 @@ class Person
         cout << "What is your gender:";
         cin >> gender;
     }
-void mostrarPersona()
+
+    void mostrarPersona()
     {
         cout << "Type of document: " << typeDocument << endl;
         cout << "Document: " << document << endl;
@@ -46,28 +71,9 @@ void mostrarPersona()
         cout << "Height: " << height << endl;
         cout << "Age: " << age << endl;
         cout << "Gender: " << gender << endl;
-    }
-
-void calcularIMC()
-{
-    double actualWeight = weight / (height * height);
-    if (actualWeight < 20) 
-    {
-        cout << "The weight is above the ideal weight" << endl;
-    }
-    else if (actualWeight >= 20 && actualWeight <= 25)
-    {
-        cout << "The weight is ideal" << endl;
-    }
-    else 
-    {
-        cout << "Have overweight" << endl;
-    }
-    return actualWeight;
-
-    bool mayorEdad ()
-    {
-        return age >= 18;
+    
+    cout << "IMC: " << calcularIMC() << endl;
+    cout << "He's older " << (mayorEdad() ? "Yes" : "No") << endl;
     }
 };
 
@@ -78,10 +84,6 @@ int main ()
     person1.pedirDatos();
     person1.mostrarPersona();
 
-    cout << "IMC" << person1.calcularIMC() << endl;
-
-    cout << "He's older " << (person1.mayorEdad() ? "Yes" : "No") << endl;
-    
     return 0;
 }
 
