@@ -107,3 +107,147 @@ public:
         return balance;
     }
 };
+
+--------------
+class Transaction {
+private:
+    int sender;
+    int receiver;
+    int amount;
+    std::string message;
+
+public:
+    Transaction(int sender, int receiver, int amount, string message)
+        : sender(sender), receiver(receiver), amount(amount), message(message) {}
+
+    void displayTransaction() {
+        cout << "You are going to send $" << amount << " to cell phone number: " << receiver << " with the message: \"" << message << "\"" << endl;
+    }
+
+    bool confirmTransaction() {
+        char sendOrno;
+        cout << "Confirm the data is correct (S/N): ";
+        cin >> sendOrno;
+
+        if (sendOrno == 'S' || sendOrno == 's') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+
+int main() {
+    int option;
+    do {
+        cout << "Choose an option: " << endl;
+        cout << "1. Send money through Nequi" << endl;
+        cout << "2. Send money through Transfiya" << endl;
+        cout << "3. Send money through Bancos" << endl;
+        cout << "4. Exit" << endl;
+        cin >> option;
+
+        switch (option) {
+            case 1:
+            {
+                int nequiOption1;
+                cout << "Cell phone: ";
+                cin >> nequiOption1;
+
+                int nequiOption2;
+                cout << "How much? ";
+                cin >> nequiOption2;
+
+                string nequiOption3;
+                cout << "Message: ";
+                cin.ignore();
+                getline(cin, nequiOption3);
+
+                Transaction nequiTransaction(0, nequiOption1, nequiOption2, nequiOption3);
+                nequiTransaction.displayTransaction();
+
+                if (nequiTransaction.confirmTransaction()) {
+                    cout << "Money sent" << endl;
+                } else {
+                    cout << "Start again" << endl;
+                }
+                break;
+            }
+
+            case 2:
+            {
+                int transfiyaOption1;
+                cout << "Cell phone: ";
+                cin >> transfiyaOption1;
+
+                int transfiyaOption2;
+                cout << "How much? ";
+                cin >> transfiyaOption2;
+
+                string transfiyaOption3;
+                cout << "Message: ";
+                cin.ignore();
+                getline(cin, transfiyaOption3);
+
+                Transaction transfiyaTransaction(0, transfiyaOption1, transfiyaOption2, transfiyaOption3);
+                transfiyaTransaction.displayTransaction();
+
+                if (transfiyaTransaction.confirmTransaction()) {
+                    cout << "Money sent" << endl;
+                } else {
+                    cout << "Start again" << endl;
+                }
+                break;
+            }
+
+            case 3:
+            {
+                string bancosOption1;
+                cout << "Name of recipient: ";
+                cin.ignore();
+                getline(cin, bancosOption1);
+
+                int bancosOption2;
+                cout << "Number of the document: ";
+                cin >> bancosOption2;
+
+                string bancosOption3;
+                cout << "Bank name: ";
+                cin.ignore();
+                getline(cin, bancosOption3);
+
+                string bancosOption4;
+                cout << "Type of account: ";
+                cin >> bancosOption4;
+
+                int bancosOption5;
+                cout << "Number of account: ";
+                cin >> bancosOption5;
+
+                Transaction bancosTransaction(0, bancosOption5, bancosOption2, bancosOption1);
+                bancosTransaction.displayTransaction();
+
+                if (bancosTransaction.confirmTransaction()) {
+                    cout << "Money sent" << endl;
+                } else {
+                    cout << "Start again" << endl;
+                }
+                break;
+            }
+
+            case 4:
+{
+                cout << "Exit" << endl;
+                break;
+            }
+
+            default:
+            {
+                cout << "You have entered an incorrect option" << endl;
+                break;
+            }
+        }
+    } while (option != 4);
+
+    return 0;
+}
