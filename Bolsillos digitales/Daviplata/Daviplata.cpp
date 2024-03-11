@@ -18,7 +18,7 @@ public:
     double getBalance() const { return balance; }
 
     void setAccountNumber(int accountNumber) { this->accountNumber = accountNumber; }
-    void setOwnerName(const std::string& ownerName) { this->ownerName = ownerName; }
+    void setOwnerName(const string& ownerName) { this->ownerName = ownerName; }
     void setBalance(double balance) { this->balance = balance; }
 
     void deposit(double amount) { balance += amount; }
