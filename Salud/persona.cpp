@@ -18,8 +18,85 @@ class Person
     int age;
 
     public:
-    Person(): typeDocument(""), document(""), name(""), lastName(""), gender(""), weight(0.0), height(0.0), age() {}
+    string typeDocument = "";
+    string document = "";
+    string name = "";
+    string lastName = "";
+    string gender = "";
 
+    double weight = 0.0;
+    double height = 0.0;
+
+    int age = Age();
+
+    string getTypeDocument() const 
+    {
+        return typeDocument;
+    }
+    string getDocument() const
+    {
+        return document;
+    }
+    string getName() const
+    {
+        return name;
+    }
+    string getlastName() const
+    {
+        return lastName;
+    }
+    string getgender() const
+    {
+        return gender;
+    }
+
+    double getweight() const
+    {
+        return weight;
+    }
+    double getheight() const
+    {
+        return height;
+    }
+
+    int getage() const
+    {
+        return age;
+    }
+
+    void setTypeDocument (const string & newTypeDocument)
+    {
+        typeDocument = newTypeDocument;
+    }
+    void setDocument (const string & newDocument)
+    {
+        document = newDocument;
+    }
+    void setName (const string & newName)
+    {
+        name = newName;
+    }
+    void setLastName (const string & newLastName)
+    {
+        lastName = newLastName;
+    }
+    void setGender (const string & newGender)
+    {
+        gender = newGender;
+    }
+
+    void setWeight(double newWeight) {
+        weight = newWeight;
+    }
+
+    void setHeight(double newHeight) {
+        height = newHeight;
+    }
+
+    void setAge(int newAge) {
+        age = newAge;
+    }
+    
     void pedirDatos()
     {
         cout << "Enter type of document:";
@@ -88,6 +165,41 @@ class Empleado : public Person
     double horasTrabajadas;
 
     public:
+    string getCargo() const 
+    {
+        return cargo;
+    }
+    string getDepartamento() const 
+    {
+        return departamento;
+    }
+
+    double getValorHora() const 
+    {
+        return valorHora;
+    }
+    double getHorasTrabajadas() const 
+    {
+        return horasTrabajadas;
+    }
+
+    void setCargo(const string& newCargo) 
+    {
+        cargo = newCargo;
+    }
+    void setDepartamento(const string& newDepartamento) 
+    {
+        departamento = newDepartamento;
+    }
+    void setValorHora(double newValorHora) 
+    {
+        valorHora = newValorHora;
+    }
+    void setHorasTrabajadas(double newHorasTrabajadas) 
+    {
+        horasTrabajadas = newHorasTrabajadas;
+    }
+
     void pedirDatosEmpleado () {
         cout << "Cargo: ";
         cin >> cargo;
@@ -112,16 +224,20 @@ class Empleado : public Person
     } 
 };
 
-int main ();
-    Person :: Salud :: Person person1;
-        Person :: Principal :: Inicio :: ejecutarOperaciones(person1);
+int main() {
+    Empleado empleado;
 
-        Empleado empleado1;
-        empleado1.pedirDatos();
-        empleado1.pedirDatosEmpleado();
-        empleado1.calcularHonorarios();
+    empleado.pedirDatosEmpleado();
 
-        return 0;
+    cout << "Data of the employee:";
+    cout << "Name: " << empleado.getName() << " " << empleado.getLastName() << endl;
+    cout << "Age: " << empleado.getAge() << " years";
+    cout << "Title: " << empleado.getCargo() << endl;
+    cout << "Department: " << empleado.getDepartamento() << endl;
+    cout << "Price per hours: $" << empleado.getValorHora() << endl;
+    cout << "Hours worked: " << empleado.getHorasTrabajadas() << " hours";
+
+    return 0;
 }
 
 /*
