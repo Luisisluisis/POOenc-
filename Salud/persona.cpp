@@ -3,9 +3,8 @@
 
 using namespace std;
 
-class Person 
-{
-    private:
+class Person {
+private:
     string typeDocument;
     string document;
     string name;
@@ -17,87 +16,76 @@ class Person
 
     int age;
 
-    public:
-    string typeDocument = "";
-    string document = "";
-    string name = "";
-    string lastName = "";
-    string gender = "";
-
-    double weight = 0.0;
-    double height = 0.0;
-
-    int age = Age();
+public:
+    Person() : typeDocument(""), document(""), name(""), lastName(""), gender(""), weight(0.0), height(0.0), age(0) {}
 
     string getTypeDocument() const 
     {
         return typeDocument;
     }
-    string getDocument() const
+    string getDocument() const 
     {
         return document;
     }
-    string getName() const
+    string getName() const 
     {
         return name;
     }
-    string getlastName() const
+    string getLastName() const 
     {
         return lastName;
     }
-    string getgender() const
+    string getGender() const 
     {
         return gender;
     }
-
-    double getweight() const
+    double getWeight() const 
     {
         return weight;
     }
-    double getheight() const
+    double getHeight() const 
     {
         return height;
     }
-
-    int getage() const
+    int getAge() const 
     {
         return age;
     }
 
-    void setTypeDocument (const string & newTypeDocument)
+    void setTypeDocument(const string &newTypeDocument) 
     {
         typeDocument = newTypeDocument;
     }
-    void setDocument (const string & newDocument)
+    void setDocument(const string &newDocument) 
     {
         document = newDocument;
     }
-    void setName (const string & newName)
+    void setName(const string &newName) 
     {
         name = newName;
     }
-    void setLastName (const string & newLastName)
+    void setLastName(const string &newLastName) 
     {
         lastName = newLastName;
     }
-    void setGender (const string & newGender)
+    void setGender(const string &newGender) 
     {
         gender = newGender;
     }
-
-    void setWeight(double newWeight) {
+    void setWeight(double newWeight) 
+    {
         weight = newWeight;
     }
-
-    void setHeight(double newHeight) {
+    void setHeight(double newHeight) 
+    {
         height = newHeight;
     }
-
-    void setAge(int newAge) {
+    void setAge(int newAge) 
+    {
         age = newAge;
     }
-    
-    void pedirDatos()
+
+    void pedirDatos() 
     {
         cout << "Enter type of document:";
         cin >> typeDocument;
@@ -132,14 +120,14 @@ class Person
         cout << "He's older " << (mayorEdad() ? "Yes" : "No") << endl;
     }
 
-    double calcularIMC()
-    {
+    double calcularIMC() 
+{
         double actualWeight = weight / (height * height);
         if (actualWeight < 20) 
         {
-            cout << "The weight is above the ideal weight" << endl;
+            cout << "The weight is below the ideal weight" << endl;
         }
-        else if (actualWeight >= 20 && actualWeight <= 25)
+        else if (actualWeight >= 20 && actualWeight <= 25) 
         {
             cout << "The weight is ideal" << endl;
         }
@@ -149,96 +137,103 @@ class Person
         }
         return actualWeight;
     }
-       
-    bool mayorEdad ()
+    bool mayorEdad() 
     {
         return age >= 18;
-    }  
-
-class Empleado : public Person 
-    {
-    private:
-    string cargo;
-    string departamento;
-
-    double valorHora;
-    double horasTrabajadas;
-
-    public:
-    string getCargo() const 
-    {
-        return cargo;
     }
-    string getDepartamento() const 
-    {
-        return departamento;
-    }
-
-    double getValorHora() const 
-    {
-        return valorHora;
-    }
-    double getHorasTrabajadas() const 
-    {
-        return horasTrabajadas;
-    }
-
-    void setCargo(const string& newCargo) 
-    {
-        cargo = newCargo;
-    }
-    void setDepartamento(const string& newDepartamento) 
-    {
-        departamento = newDepartamento;
-    }
-    void setValorHora(double newValorHora) 
-    {
-        valorHora = newValorHora;
-    }
-    void setHorasTrabajadas(double newHorasTrabajadas) 
-    {
-        horasTrabajadas = newHorasTrabajadas;
-    }
-
-    void pedirDatosEmpleado () {
-        cout << "Cargo: ";
-        cin >> cargo;
-        cout << "Department: ";
-        cin >> departamento;
-        cout << "Price per hour: ";
-        cin >> valorHora;
-        cout << "Hours worked: ";
-        cin >> horasTrabajadas;
-    } 
-    void calcularHonorarios() {
-        double totalPagar = (valorHora * horasTrabajadas);
-        double reteica = (totalPagar * (0.966 / 100));
-
-        cout << "Data of the worker";
-
-        mostrarPersona();
-        cout << "Title: " << cargo << endl;
-        cout << "Hours worked: " << horasTrabajadas << " hours" << endl;
-        cout << "Valor por hora: $" << valorHora << endl;
-        cout << "Total a pagar: $" << totalPagar - reteica << endl;
-    } 
 };
 
-int main() {
-    Empleado empleado;
+class Employee : public Person 
+{
+private:
+    string position;
+    string department;
 
-    empleado.pedirDatosEmpleado();
+    double hourlyRate;
+    double hoursWorked;
 
-    cout << "Data of the employee:";
-    cout << "Name: " << empleado.getName() << " " << empleado.getLastName() << endl;
-    cout << "Age: " << empleado.getAge() << " years";
-    cout << "Title: " << empleado.getCargo() << endl;
-    cout << "Department: " << empleado.getDepartamento() << endl;
-    cout << "Price per hours: $" << empleado.getValorHora() << endl;
-    cout << "Hours worked: " << empleado.getHorasTrabajadas() << " hours";
+public:
+    Employee() : position(""), department(""), hourlyRate(0.0), hoursWorked(0.0) {}
+
+    string getPosition() const 
+    {
+        return position;
+    }
+    string getDepartment() const 
+    {
+        return department;
+    }
+
+    double getHourlyRate() const 
+    {
+        return hourlyRate;
+    }
+    double getHoursWorked() const 
+    {
+        return hoursWorked;
+    }
+
+    void setPosition(const string &newPosition) 
+    {
+        position = newPosition;
+    }
+    void setDepartment(const string &newDepartment) 
+    {
+        department = newDepartment;
+    }
+    void setHourlyRate(double newHourlyRate) 
+    {
+        hourlyRate = newHourlyRate;
+    }
+    void setHoursWorked(double newHoursWorked) 
+    {
+        hoursWorked = newHoursWorked;
+    }
+
+    void pedirDatosEmpleado() 
+    {
+        cout << "Position: ";
+        cin >> position;
+        cout << "Department: ";
+        cin >> department;
+        cout << "Hourly rate: ";
+        cin >> hourlyRate;
+        cout << "Hours worked: ";
+        cin >> hoursWorked;
+    }
+
+    void calcularHonorarios() 
+    {
+        double totalPay = hourlyRate * hoursWorked;
+        double reteica = totalPay * (0.966 / 100);
+
+        cout << "Data of the worker" << endl;
+
+        mostrarPersona();
+        cout << "Position: " << position << endl;
+        cout << "Hours worked: " << hoursWorked << " hours" << endl;
+        cout << "Hourly rate: $" << hourlyRate << endl;
+        cout << "Total to pay: $" << totalPay - reteica << endl;
+    }
+};
+
+int main() 
+{
+    Employee employee;
+
+    employee.pedirDatosEmpleado();
+
+    cout << "Data of the employee:" << endl;
+    cout << "Name: " << employee.getName() << " " << employee.getLastName() << endl;
+    cout << "Age: " << employee.getAge() << " years" << endl;
+    cout << "Position: " << employee.getPosition() << endl;
+    cout << "Department: " << employee.getDepartment() << endl;
+    cout << "Hourly rate: $" << employee.getHourlyRate() << endl;
+    cout << "Hours worked: " << employee.getHoursWorked() << " hours" << endl;
 
     return 0;
 }
+
 
 /*
 // Construtor vacio
