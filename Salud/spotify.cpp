@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -7,18 +8,17 @@ class Spotify {
 private:
     string title;
     string artist;
-
     int duration;
 
 public:
     Spotify(string _title, string _artist, int _duration) : title(_title), artist(_artist), duration(_duration) {}
 
-    string getTitulo() const 
+    string getTitle() const 
     {
         return title;
     }
 
-    string getArtista() const 
+    string getArtist() const 
     {
         return artist;
     }
@@ -34,31 +34,23 @@ class SpotifyList
 {
 private:
     static const int max_songs = 100;
-    Spotify songs[max_songs];
-    int numCanciones;
-    vector <Spotify> songs;
+    vector<Spotify> songs;
+    int numSongs;
 
 public:
-    SpotifyList() : numCanciones(0) {}
+    SpotifyList() : numSongs(0) {}
 
-    void addSong(const Spotify& cancion) 
+    void addSong(const Spotify& song) 
     {
-        if (numCanciones < max_songs) 
-        {
-            songs[numCanciones++] = cancion;
-        } 
-        else 
-        {
-            cout << "The list of reproduction is full." << endl;
-        }
+        songs.push_back(song);
     }
 
-    void mostrarCanciones() const 
+    void showSongs() const 
     {
         cout << "List of reproduction:" << endl;
-        for (int i = 0; i < numCanciones; ++i) 
+        for (int i = 0; i < numSongs; ++i) 
         {
-            cout << songs[i].getTitulo() << " - " << songs[i].getArtista() << endl;
+            cout << songs[i].getTitle() << " - " << songs[i].getArtist() << endl;
         }
     }
 
@@ -67,8 +59,7 @@ public:
         sort(songs.begin(), songs.end(), [](const Spotify& a, const Spotify& b) 
         {
             return a.getTitle() < b.getTitle();
-        }
-        );
+        });
     }
 
     void searchByArtistZA() 
@@ -91,6 +82,7 @@ public:
         }
         songs = filteredSongs;
     }
+
     vector<Spotify> searchByTitleStartingWith(char letter) 
     {
         vector<Spotify> foundSongs;
@@ -102,10 +94,10 @@ public:
             }
         }
         return foundSongs;
+    }
 
-        }
-        vector<Spotify> searchByArtist(const string& artistName) 
-        {
+    vector<Spotify> searchByArtist(const string& artistName) 
+    {
         vector<Spotify> foundSongs;
         for (const auto& song : songs) 
         {
@@ -165,21 +157,21 @@ int main()
     Spotify SpotifyList9("Bring it fine", "TEKKNO",254);
     Spotify SpotifyList10("Anonimu$", "Thedolarbil",126);
 
-    completeList.addSong(SpotifyList1);
-    completeList.addSong(SpotifyList2);
-    completeList.addSong(SpotifyList3);
-    completeList.addSong(SpotifyList5);
-    completeList.addSong(SpotifyList8);
-    completeList.addSong(SpotifyList10);
+    playlist.addSong(SpotifyList1);
+    playlist.addSong(SpotifyList2);
+    playlist.addSong(SpotifyList3);
+    playlist.addSong(SpotifyList5);
+    playlist.addSong(SpotifyList8);
+    playlist.addSong(SpotifyList10);
 
-    completeList.mostrarCanciones();
+    playlist.showSongs();
 
     SpotifyList yourList;
     yourList.addSong(SpotifyList1);
     yourList.addSong(SpotifyList2);
     yourList.addSong(SpotifyList3);
 
-    yourList.mostrarCanciones();
+    yourList.showSongs();
 
     SpotifyList friendList;
     friendList.addSong(SpotifyList4);
@@ -189,7 +181,7 @@ int main()
     friendList.addSong(SpotifyList5);
     friendList.addSong(SpotifyList6);
 
-    friendList.mostrarCanciones();
+    friendList.showSongs();
 
     Node *head = nullptr;
     insertarInicio(head, 3);
@@ -199,17 +191,13 @@ int main()
     cout << "Jams list:" << endl;
     imprimirLista(head);
 
-    return 0;
-}
-int main() 
-{
     cout << "Organized by title (A-Z):" << endl;
-    playlist.sortByTitleAZ();
+    playlist.searchByTitleAZ();
     playlist.showSongs();
     cout << endl;
 
     cout << "Organized by artist (Z-A):" << endl;
-    playlist.sortByArtistZA();
+    playlist.searchByArtistZA();
     playlist.showSongs();
     cout << endl;
 
@@ -223,7 +211,7 @@ int main()
     vector<Spotify> foundSongs = playlist.searchByTitleStartingWith(startingLetter);
     for (const auto& song : foundSongs) 
     {
-        cout << song.getTitulo() << " - " << song.getArtista() << endl;
+        cout << song.getTitle() << " - " << song.getArtist() << endl;
     }
     cout << endl;
 
