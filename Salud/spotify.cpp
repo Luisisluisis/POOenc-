@@ -8,8 +8,10 @@ private:
     string title;
     string artist;
 
+    int duration;
+
 public:
-    Spotify(string _titulo, string _artista) : title(_titulo), artist(_artista) {}
+    Spotify(string _title, string _artist, int _duration) : title(_title), artist(_artist), duration(_duration) {}
 
     string getTitulo() const 
     {
@@ -20,6 +22,12 @@ public:
     {
         return artist;
     }
+
+    int getDuration() const
+    {
+        return duration;
+    }
+    
 };
 
 class SpotifyList 
@@ -28,13 +36,15 @@ private:
     static const int max_songs = 100;
     Spotify songs[max_songs];
     int numCanciones;
+    vector <Spotify> songs;
 
 public:
     SpotifyList() : numCanciones(0) {}
 
     void addSong(const Spotify& cancion) 
     {
-        if (numCanciones < max_songs) {
+        if (numCanciones < max_songs) 
+        {
             songs[numCanciones++] = cancion;
         } 
         else 
@@ -45,10 +55,73 @@ public:
 
     void mostrarCanciones() const 
     {
-        cout << "Lista de reproduccion:" << endl;
+        cout << "List of reproduction:" << endl;
         for (int i = 0; i < numCanciones; ++i) 
         {
             cout << songs[i].getTitulo() << " - " << songs[i].getArtista() << endl;
+        }
+    }
+
+    void searchByTitleAZ() 
+    {
+        sort(songs.begin(), songs.end(), [](const Spotify& a, const Spotify& b) 
+        {
+            return a.getTitle() < b.getTitle();
+        }
+        );
+    }
+
+    void searchByArtistZA() 
+    {
+        sort(songs.begin(), songs.end(), [](const Spotify& a, const Spotify& b) 
+        {
+            return a.getArtist() > b.getArtist();
+        });
+    }
+
+    void filterByDuration(int minDuration, int maxDuration) 
+    {
+        vector<Spotify> filteredSongs;
+        for (const auto& song : songs) 
+        {
+            if (song.getDuration() >= minDuration && song.getDuration() <= maxDuration) 
+            {
+                filteredSongs.push_back(song);
+            }
+        }
+        songs = filteredSongs;
+    }
+    vector<Spotify> searchByTitleStartingWith(char letter) 
+    {
+        vector<Spotify> foundSongs;
+        for (const auto& song : songs) 
+        {
+            if (song.getTitle()[0] == letter) 
+            {
+                foundSongs.push_back(song);
+            }
+        }
+        return foundSongs;
+
+        }
+        vector<Spotify> searchByArtist(const string& artistName) 
+        {
+        vector<Spotify> foundSongs;
+        for (const auto& song : songs) 
+        {
+            if (song.getArtist() == artistName) 
+            {
+                foundSongs.push_back(song);
+            }
+        }
+        return foundSongs;
+    }
+
+    void showSongs() const 
+    {
+        for (const auto& song : songs) 
+        {
+            cout << song.getTitle() << " - " << song.getArtist() << " (" << song.getDuration() << " segundos)" << endl;
         }
     }
 };
@@ -77,17 +150,20 @@ void imprimirLista(Node *head)
     cout << endl;
 }
 
-int main() {
-    Spotify SpotifyList1("La nasa siempre manda cohetes", "Mercromina");
-    Spotify SpotifyList2("Pim pam toma lacasitos", "Thedolarbil");
-    Spotify SpotifyList3("Pennywise", "Angerfist");
-    Spotify SpotifyList4("Sexy hard", "Kenneth");
-    Spotify SpotifyList5("Do this", "DJ Bruud");
-    Spotify SpotifyList6("Artificial noise", "Klofama");
-    Spotify SpotifyList7("WTF is hardcore", "Vistor Krum");
-    Spotify SpotifyList8("Crying Nasty", "JXLN");
-    Spotify SpotifyList9("Bring it fine", "TEKKNO");
-    Spotify SpotifyList10("Anonimu$", "Thedolarbil");
+int main() 
+{
+    SpotifyList playlist;
+
+    Spotify SpotifyList1("La nasa siempre manda cohetes", "Mercromina", 180);
+    Spotify SpotifyList2("Pim pam toma lacasitos", "Thedolarbil",120);
+    Spotify SpotifyList3("Pennywise", "Angerfist",140);
+    Spotify SpotifyList4("Sexy hard", "Kenneth",240);
+    Spotify SpotifyList5("Do this", "DJ Bruud",150);
+    Spotify SpotifyList6("Artificial noise", "Klofama",320);
+    Spotify SpotifyList7("WTF is hardcore", "Vistor Krum",120);
+    Spotify SpotifyList8("Crying Nasty", "JXLN",345);
+    Spotify SpotifyList9("Bring it fine", "TEKKNO",254);
+    Spotify SpotifyList10("Anonimu$", "Thedolarbil",126);
 
     completeList.addSong(SpotifyList1);
     completeList.addSong(SpotifyList2);
@@ -122,6 +198,43 @@ int main() {
 
     cout << "Jams list:" << endl;
     imprimirLista(head);
+
+    return 0;
+}
+int main() 
+{
+    cout << "Organized by title (A-Z):" << endl;
+    playlist.sortByTitleAZ();
+    playlist.showSongs();
+    cout << endl;
+
+    cout << "Organized by artist (Z-A):" << endl;
+    playlist.sortByArtistZA();
+    playlist.showSongs();
+    cout << endl;
+
+    cout << "Organized by songs that have a duration between 1 and 3 minutes:" << endl;
+    playlist.filterByDuration(60, 180);
+    playlist.showSongs();
+    cout << endl;
+
+    char startingLetter = 'C';
+    cout << "Organized by songs that start with letter c are '" << startingLetter << "':" << endl;
+    vector<Spotify> foundSongs = playlist.searchByTitleStartingWith(startingLetter);
+    for (const auto& song : foundSongs) 
+    {
+        cout << song.getTitulo() << " - " << song.getArtista() << endl;
+    }
+    cout << endl;
+
+    string artistName = "Artist A";
+    cout << "Organized by songs from artist A '" << artistName << "':" << endl;
+    foundSongs = playlist.searchByArtist(artistName);
+    for (const auto& song : foundSongs) 
+    {
+        cout << song.getTitle() << " - " << song.getArtist() << endl;
+    }
+    cout << endl;
 
     return 0;
 }
